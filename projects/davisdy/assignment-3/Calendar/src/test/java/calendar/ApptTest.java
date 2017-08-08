@@ -95,7 +95,7 @@ public class ApptTest {
          assertEquals("This is my birthday party.", appt.getDescription());
 
      }
-
+	/*
      @Test
      public void test04()  throws Throwable  {
          int startHour=13;
@@ -153,7 +153,7 @@ public class ApptTest {
          assertEquals("This is my birthday party.", appt.getDescription());
 
      }
-
+	*/
      @Test
      public void test06()  throws Throwable  {
          int startHour=13;
