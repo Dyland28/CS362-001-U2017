@@ -29,24 +29,8 @@ public class ApptRandomTest {
     	            
         return methodArray[n] ; // return the method name 
         }
-	/**
-	 * Return a randomly selected appointments to recur Weekly,Monthly, or Yearly !.
-	 */
-    public static int RandomSelectRecur(Random random){
-        int[] RecurArray = new int[] {Appt.RECUR_BY_WEEKLY,Appt.RECUR_BY_MONTHLY,Appt.RECUR_BY_YEARLY};// The list of the of setting appointments to recur Weekly,Monthly, or Yearly
-
-    	int n = random.nextInt(RecurArray.length);// get a random number between 0 (inclusive) and  RecurArray.length (exclusive)
-        return RecurArray[n] ; // return the value of the  appointments to recur 
-        }	
-	/**
-	 * Return a randomly selected appointments to recur forever or Never recur  !.
-	 */
-    public static int RandomSelectRecurForEverNever(Random random){
-        int[] RecurArray = new int[] {Appt.RECUR_NUMBER_FOREVER,Appt.RECUR_NUMBER_NEVER};// The list of the of setting appointments to recur RECUR_NUMBER_FOREVER, or RECUR_NUMBER_NEVER
-
-    	int n = random.nextInt(RecurArray.length);// get a random number between 0 (inclusive) and  RecurArray.length (exclusive)
-        return RecurArray[n] ; // return appointments to recur forever or Never recur 
-        }	
+	
+	
    /**
      * Generate Random Tests that tests Appt Class.
      */

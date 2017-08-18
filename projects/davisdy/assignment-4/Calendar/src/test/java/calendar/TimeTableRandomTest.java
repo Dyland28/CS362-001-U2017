@@ -1,8 +1,6 @@
 package calendar;
 
-import java.util.Calendar;
-import java.util.Random;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import org.junit.Test;
 
@@ -47,12 +45,15 @@ public class TimeTableRandomTest {
 				 //System.out.println(" Seed:"+randomseed );
 				 Random random = new Random(randomseed);
 				 TimeTable t1 = new TimeTable();
+				 GregorianCalendar g1;
+				 GregorianCalendar g2;
+
 
 				 for (int i = 0; i < NUM_TESTS; i++) {
 					 String methodName = TimeTableRandomTest.RandomSelectMethod(random);
 					 LinkedList<Appt> appts = new LinkedList<Appt>();
 
-					 for (in j = 0; j < 10; j++){
+					 for (int j = 0; j < 10; j++){
 						 int startHour=ValuesGenerator.getRandomIntBetween(random, -1, 25);
 						 int startMinute=ValuesGenerator.getRandomIntBetween(random, -1, 61);
 						 int startDay=ValuesGenerator.getRandomIntBetween(random, 0, 32);
@@ -70,11 +71,23 @@ public class TimeTableRandomTest {
 											  description);
 						 appts.add(appt);
 					 }
+					 Appt badappt = new Appt(-1, -1, -1, -1, -1, "a", "a");
 					 if (methodName.equals("deleteAppt")){
 						 int index1 = ValuesGenerator.getRandomIntBetween(random, 0, 9);
-						 t1.deleteAppt(appts, appts.get(index1));
-
-						 assertEquals(appts.size(), 9);
+						 if (appts.get(index1).getValid()){
+							 LinkedList<Appt> appt2 = t1.deleteAppt(appts, null);
+							 assertTrue(appt2 == null);
+							 LinkedList<Appt> appt3 = t1.deleteAppt(null, appts.get(index1));
+							 assertTrue(appt3 == null);
+							 LinkedList<Appt> appt4 = t1.deleteAppt(appts, badappt);
+							 assertTrue(appt4 == null);
+							 appts = t1.deleteAppt(appts, appts.get(index1));
+							 assertEquals(appts.size(), 9);
+						 }
+						 else{
+							 appts = t1.deleteAppt(appts, appts.get(index1));
+							 assertTrue(appts == null);
+						 }
 					 }
 					 else if (methodName.equals("getApptRange")){
 						 do{
@@ -82,16 +95,16 @@ public class TimeTableRandomTest {
 							 int stMonth=ValuesGenerator.getRandomIntBetween(random, 0, 14);
 							 int stYear=ValuesGenerator.getRandomIntBetween(random, 1900, 2100);
 
-							 GregorianCalendar g1 = new GregorianCalendar(stYear, stMonth, stDay);
+							 g1 = new GregorianCalendar(stYear, stMonth, stDay);
+
 
 							 int enDay=ValuesGenerator.getRandomIntBetween(random, 0, 32);
 							 int enMonth=ValuesGenerator.getRandomIntBetween(random, 0, 14);
 							 int enYear=ValuesGenerator.getRandomIntBetween(random, 1900, 2100);
 
-							 GregorianCalendar g2 = new GregorianCalendar(enYear, enMonth, enDay);
+							 g2 = new GregorianCalendar(enYear, enMonth, enDay);
 						 }while(g2.before(g1));
-						 appts = t1.getApptRange(appts, g1, g2);
-
+						 LinkedList<CalDay> c1 = t1.getApptRange(appts, g1, g2);
 					 }
 				 }
 
